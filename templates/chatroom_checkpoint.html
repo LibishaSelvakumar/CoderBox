@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="{{url_for('static', filename='chatroom_checkpoint.js')}}"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caller ID [{{room_id}}]</title>
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        /* Default Navbar */
+.navbar {
+    background-color: #FFFFFF;
+}
+
+/* Change color for navbar links */
+.navbar a {
+    color: #000000 !important; /* Black color for links */
+}
+
+/* When navbar changes to white background */
+.navbar-white {
+    background-color: #fff !important;
+}
+
+.navbar-white a {
+    color: #007bff !important; /* Blue color for navbar links after changing background */
+}
+
+.navbar a:hover {
+    color: #007bff !important; /* Hover color */
+}
+
+
+        .heading {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .heading h4 {
+            font-size: 1.25rem;
+            color: #6c757d;
+        }
+
+        .heading-mark {
+            color: #007bff;
+        }
+
+        .form {
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            margin-top: 50px;
+        }
+
+        .form input[type="text"] {
+            border-radius: 5px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+
+        .vid-wrapper {
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: #343a40;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .vid-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .control-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .btn-lg {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+
+        .btn-outline-secondary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .alert {
+            border-radius: 10px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        footer {
+            background-color: #343a40;
+            color: white;
+            padding: 30px 0;
+            margin-top: 30px;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 20px;
+        }
+
+        footer .social-icons a:hover {
+            color: #007bff;
+        }
+
+    </style>
+
+    <script>
+        function handleJoin() {
+    var displayName = document.getElementById("display_name").value;
+    if (displayName) {
+        // Change navbar color to white
+        document.querySelector(".navbar").classList.add("navbar-white");
+        // Optionally, you can show the name in the room or process further
+        alert("Welcome to the room, " + displayName + "!");
+        
+        // Submit the form here
+        document.querySelector('form').submit();
+    } else {
+        alert("Please enter a display name.");
+    }
+}
+    </script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Freelancer</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a style="color:#000000;" class="nav-link" href="/">Home</a>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="/logout" href="#contact">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Heading -->
+    <div class="heading mb-5">
+        <h1>Freelancer</h1>
+        <h4>You are about to join Caller ID: <span class="heading-mark">http://localhost/room/{{room_id}}</span></h4>
+    </div>
+
+    <!-- Form and Video Section -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6 mb-5">
+                <form method="POST" onSubmit="event.preventDefault(); handleJoin();" class="form shadow">
+                    <div class="input-group mb-3">
+                        <input type="text" name="display_name" id="display_name" class="form-control" placeholder="Enter Display Name" value="" autofocus required>
+                        <div class="input-group-append">
+                            <input type="submit" value="Join" class="btn btn-primary">
+                        </div>
+                    </div>
+                    <input type="hidden" value="0" name="mute_audio" id="mute_audio_inp">
+                    <input type="hidden" value="0" name="mute_video" id="mute_video_inp">
+                </form>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div id="permission_alert" class="alert alert-danger" role="alert" style="display: none;">
+                    <strong>Please allow camera and mic permissions!</strong>
+                </div>
+
+                <div class="shadow p-0">
+                    <div class="vid-wrapper">
+                        <video id="local_vid" autoplay muted></video>
+                    </div>
+
+                    <div class="control-buttons">
+                        <button id="bttn_mute" class="btn btn-lg btn-outline-secondary mx-3">
+                            <span id="mute_icon" class="material-icons pt-2">
+                                mic
+                            </span>
+                        </button>
+                        <button id="bttn_vid_mute" class="btn btn-lg btn-outline-secondary mx-3">
+                            <span id="vid_mute_icon" class="material-icons pt-2">
+                                videocam
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2025 Freelancer. All rights reserved.</p>
+            <div class="social-icons">
+                
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

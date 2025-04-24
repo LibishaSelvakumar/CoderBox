@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Post Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .job-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .profiles {
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        .profile-card {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Job Post Details</h1>
+
+    <h2>Extracted Job Titles:</h2>
+    {% if job_titles %}
+        <ul>
+            {% for title in job_titles %}
+                <li class="job-title">{{ title }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No job titles found.</p>
+    {% endif %}
+
+    <div class="profiles">
+        <h2>Matching Profiles:</h2>
+        {% if profiles %}
+            {% for profile in profiles %}
+                <div class="profile-card">
+                    <p><strong>Name:</strong> {{ profile[1] }}</p>  <!-- Assuming name is in column 2 -->
+                    <p><strong>Email:</strong> {{ profile[2] }}</p> <!-- Assuming email is in column 3 -->
+                    <p><strong>Skills:</strong> {{ profile[3] }}</p> <!-- Assuming skills are in column 4 -->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching profiles found.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
