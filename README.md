@@ -19,7 +19,10 @@ CoderBox is a powerful and user-friendly web platform that connects clients with
 ## 🛠️ Tech Stack
 
 **Frontend:**
-- HTML,CSS,Bootstrap
+- HTML
+- CSS
+- Bootstrap
+- JavaScript
 
 **Backend:**
 - Python 3.7.4(32-bit)
@@ -30,8 +33,6 @@ CoderBox is a powerful and user-friendly web platform that connects clients with
 - Wampserver 2i
   
 ---
-
-## 🚀 Getting Started
 
 ### Clone the Repository
 ```bash
